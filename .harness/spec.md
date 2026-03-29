@@ -99,7 +99,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should assert: (a) a story with `category="AI"` appears before a story with `category="Business"` in the output HTML; (b) a story with `engagers=["software engineer", "entrepreneur"]` produces HTML containing the text `"For: software engineer, entrepreneur"`; (c) the returned HTML contains no `<link rel="stylesheet"` or `<style>` tags in the `<head>` — only inline `style=` attributes.
   - YAGNI boundary: Do not add plain-text email fallback, do not embed images, do not add an unsubscribe footer, do not add a `max_digest_stories` cap here — apply it before calling `build_html` in `digest.py`.
 
-- [ ] TASK-011: SMTP send
+- [x] TASK-011: SMTP send
   - Files: `src/digest/smtp_send.py`
   - Test file: `tests/test_smtp_send.py`
   - Acceptance: `send_digest(html, config)` connects to `smtp_host:smtp_port` with STARTTLS, authenticates with `smtp_user`/`smtp_pass`, and sends a multipart/alternative email (HTML part only) with subject `"Channel Herald — {today's date}"` from `smtp_user` to `email_to`.

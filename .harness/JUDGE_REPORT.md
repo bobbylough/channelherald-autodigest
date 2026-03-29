@@ -8,9 +8,9 @@
 ## Audit Run
 
 - Date: 2026-03-29
-- Task audited: TASK-010
-- Git range: HEAD~1..HEAD (f1abe1a) — TASK-010 changes are uncommitted
-- Overall coverage: 98.90%
+- Task audited: TASK-011
+- Git range: HEAD~1..HEAD (f1abe1a) — TASK-011 changes are uncommitted
+- Overall coverage: 98.96%
 - Lint: PASS
 - Type check: PASS
 
@@ -141,6 +141,19 @@
 **Lint:** PASS
 **Type check:** PASS
 **Finding:** All acceptance criteria met — AI appears before Business before Technology, engagers badge renders `For: software engineer, entrepreneur`, `<head>` contains viewport meta with no `<link rel="stylesheet"` or `<style>` tags, non-list engagers produce no badge; only `src/digest/digest_builder.py` and `tests/test_digest_builder.py` added.
+**Principle flags:** NONE
+**Action required:** NONE
+
+---
+
+## [TASK-011]: PASS
+
+**Acceptance criterion:** `send_digest(html, config)` connects to `smtp_host:smtp_port` with STARTTLS, authenticates with `smtp_user`/`smtp_pass`, and sends a multipart/alternative email (HTML part only) with subject `"Channel Herald — {today's date}"` from `smtp_user` to `email_to`.
+**Coverage:** 100% lines, 100% branches (src\digest\smtp_send.py); 98.96% total
+**Tests:** 4 new passing (54 total)
+**Lint:** PASS
+**Type check:** PASS
+**Finding:** All acceptance criteria met — `starttls()` confirmed before `login()`, sender and recipient verified via `sendmail` args, subject contains today's date in `YYYY-MM-DD` format, HTML sent as `multipart/alternative` body with no attachments; only `src/digest/smtp_send.py` and `tests/test_smtp_send.py` added.
 **Principle flags:** NONE
 **Action required:** NONE
 
