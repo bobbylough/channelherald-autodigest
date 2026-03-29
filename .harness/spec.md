@@ -50,14 +50,14 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should assert that given an HTML body with 5 links where one link is from a preferred domain, that link appears first in the returned list even if it appears later in the HTML; also assert that a URL with UTM params is returned stripped.
   - YAGNI boundary: Do not filter by ignored domains (that is digest.py's job), do not fetch articles, do not deduplicate across emails — return URLs only.
 
-- [ ] TASK-004: Article scraper with `content_depth` and `title_only` detection
+- [x] TASK-004: Article scraper with `content_depth` and `title_only` detection
   - Files: `src/digest/scraper.py`
   - Test file: `tests/test_scraper.py`
   - Acceptance: `scrape_article(url)` fetches the URL, extracts the main text with BeautifulSoup, and returns a dict with `url`, `title`, `body` (plain text), `word_count` (int), `read_time` (int, minutes), `content_depth` (int, min(word_count//100, 5)), and `title_only` (True when body is empty or word_count < 50).
   - TDD note: Test should mock `requests.get` and assert that a response with a `<p>` body of known word count produces the correct `word_count`, `read_time`, and `content_depth` values; and that a response returning a 403 or empty body sets `title_only=True` with `word_count=0`.
   - YAGNI boundary: Do not persist to `seen_urls.db` (TASK-005), do not run JavaScript, do not follow redirects beyond requests' default behaviour, do not extract images or metadata.
 
-- [ ] TASK-005: Seen-URL SQLite tracker
+- [x] TASK-005: Seen-URL SQLite tracker
   - Files: `src/digest/seen_urls.py`
   - Test file: `tests/test_seen_urls.py`
   - Acceptance: `SeenUrls(db_path)` provides `contains(url) -> bool` and `add(url) -> None`; URLs added in one instance are visible to a new instance opened on the same file.
