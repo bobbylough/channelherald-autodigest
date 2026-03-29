@@ -43,7 +43,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should mock `imaplib.IMAP4_SSL` and assert that the returned list contains dicts with both `body` and `is_preferred` keys, and that a sender matching a `preferred_senders` pattern sets `is_preferred=True` while a non-matching sender sets it `False`.
   - YAGNI boundary: Do not mark emails as read, do not download attachments, do not retry on connection failure, do not parse the email body — return raw HTML only.
 
-- [ ] TASK-003: Scored link extraction with per-tier caps
+- [x] TASK-003: Scored link extraction with per-tier caps
   - Files: `src/digest/link_extractor.py`
   - Test file: `tests/test_link_extractor.py`
   - Acceptance: `extract_links(email_dict, config)` parses the HTML body, scores each `<a>` tag by position index + anchor text length + preferred-domain bonus, and returns a list of the top-N URLs (N = `max_articles_per_email`, doubled for preferred emails), sorted by score descending, with `http/https` URLs only, stripping UTM parameters.

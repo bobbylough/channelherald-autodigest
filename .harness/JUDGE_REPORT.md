@@ -8,9 +8,9 @@
 ## Audit Run
 
 - Date: 2026-03-29
-- Task audited: TASK-002
-- Git range: N/A (no harness-baseline tag — single initial commit 56e7998)
-- Overall coverage: 97.27%
+- Task audited: TASK-003
+- Git range: HEAD~1..HEAD (8b1d657) — TASK-003 files are uncommitted
+- Overall coverage: 97.95%
 - Lint: PASS
 - Type check: PASS
 
@@ -31,12 +31,25 @@
 
 ## [TASK-002]: PASS
 
-**Acceptance criterion:** `fetch_emails(config)` connects to IMAP, searches for emails from `newsletter_senders` within the lookback window, and returns a `list[dict]` where each dict has `body: str` (raw HTML) and `is_preferred: bool` (True when the sender matches a `preferred_senders` entry).
-**Coverage:** 98% lines, 91.7% branches (src\digest\imap_fetch.py)
+**Acceptance criterion:** `fetch_emails(config)` connects to IMAP, searches for emails from `newsletter_senders` within the lookback window, and returns a `list[dict]` where each dict has `body: str` (raw HTML) and `is_preferred: bool`.
+**Coverage:** 98% lines (src\digest\imap_fetch.py)
 **Tests:** 5 passing (9 total)
 **Lint:** PASS
 **Type check:** PASS
-**Finding:** All acceptance criteria met — `fetch_emails` mocks IMAP correctly, returns dicts with `body` and `is_preferred`, domain-pattern matching (`@domain.com`) and exact-address matching both work correctly.
+**Finding:** All acceptance criteria met — domain-pattern and exact-address preferred-sender matching both verified.
+**Principle flags:** NONE
+**Action required:** NONE
+
+---
+
+## [TASK-003]: PASS
+
+**Acceptance criterion:** `extract_links(email_dict, config)` parses the HTML body, scores each `<a>` tag by position + anchor text length + preferred-domain bonus, returns top-N URLs sorted by score descending, `http/https` only, UTM params stripped. Cap is `max_articles_per_email`, doubled for preferred emails.
+**Coverage:** 100% lines, 100% branches (src\digest\link_extractor.py)
+**Tests:** 5 passing (14 total)
+**Lint:** PASS
+**Type check:** PASS
+**Finding:** All acceptance criteria met — preferred-domain link ranked first despite late HTML position, UTM stripping preserves non-UTM params, non-http/https URLs filtered, and cap-doubling for preferred emails all verified.
 **Principle flags:** NONE
 **Action required:** NONE
 
