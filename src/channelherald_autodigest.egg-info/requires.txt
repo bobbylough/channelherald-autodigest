@@ -1,0 +1,10 @@
+beautifulsoup4
+requests
+
+[dev]
+pytest
+pytest-cov
+ruff
+mypy
+types-requests
+types-beautifulsoup4

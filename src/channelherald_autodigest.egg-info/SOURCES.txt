@@ -1,0 +1,8 @@
+pyproject.toml
+src/channelherald_autodigest.egg-info/PKG-INFO
+src/channelherald_autodigest.egg-info/SOURCES.txt
+src/channelherald_autodigest.egg-info/dependency_links.txt
+src/channelherald_autodigest.egg-info/requires.txt
+src/channelherald_autodigest.egg-info/top_level.txt
+src/digest/__init__.py
+tests/test_config.py

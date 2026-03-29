@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest --cov=src --cov-report=term-missing tests/)",
+      "Bash(ruff check:*)",
+      "Bash(mypy src/)"
+    ]
+  }
+}
