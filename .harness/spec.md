@@ -92,7 +92,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should use mocks for all I/O modules (imap_fetch, scraper, article_rater, llm) and assert: (a) an article from a preferred sender with `dinner_score=3` is kept (threshold 3) while a regular sender article with `dinner_score=3` is dropped (threshold 4); (b) two articles whose titles share > 0.5 Jaccard similarity result in only the higher-scored one surviving; (c) `content_depth` is used as the tiebreaker when `dinner_score` values are equal.
   - YAGNI boundary: Do not implement partial-run recovery, do not write a progress log file, do not cap the final story count here — that is the digest builder's job.
 
-- [ ] TASK-010: Digest HTML builder with engagers badge
+- [x] TASK-010: Digest HTML builder with engagers badge
   - Files: `src/digest/digest_builder.py`
   - Test file: `tests/test_digest_builder.py`
   - Acceptance: `build_html(summaries, config)` groups stories by category in order AI → Business → Technology, renders each story with its `summary`, `read_time`, and an engagers badge (`For: {comma-separated engagers}`) in muted gray small-font inline CSS, and returns a complete HTML string with a `<head>` containing a viewport meta tag and no external stylesheets.

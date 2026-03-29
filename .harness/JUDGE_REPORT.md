@@ -8,9 +8,9 @@
 ## Audit Run
 
 - Date: 2026-03-29
-- Task audited: TASK-009
-- Git range: HEAD~1..HEAD (f1abe1a) — TASK-009 changes are uncommitted
-- Overall coverage: 98.76%
+- Task audited: TASK-010
+- Git range: HEAD~1..HEAD (f1abe1a) — TASK-010 changes are uncommitted
+- Overall coverage: 98.90%
 - Lint: PASS
 - Type check: PASS
 
@@ -128,6 +128,19 @@
 **Lint:** PASS
 **Type check:** PASS
 **Finding:** All acceptance criteria met — preferred/regular per-tier thresholds verified, Jaccard dedup keeps higher-scored article, `content_depth` tiebreaker confirmed, seen-URL skip verified, `validate_summary` called only when `enable_summary_validation=True`, `rate_article` not called when `enable_rating=False`; only `src/digest/digest.py` and `tests/test_digest.py` added.
+**Principle flags:** NONE
+**Action required:** NONE
+
+---
+
+## [TASK-010]: PASS
+
+**Acceptance criterion:** `build_html(summaries, config)` groups stories by category in order AI → Business → Technology, renders each story with its `summary`, `read_time`, and an engagers badge (`For: {comma-separated engagers}`) in muted gray small-font inline CSS, and returns a complete HTML string with a `<head>` containing a viewport meta tag and no external stylesheets.
+**Coverage:** 100% lines, 100% branches (src\digest\digest_builder.py); 98.90% total
+**Tests:** 7 new passing (50 total)
+**Lint:** PASS
+**Type check:** PASS
+**Finding:** All acceptance criteria met — AI appears before Business before Technology, engagers badge renders `For: software engineer, entrepreneur`, `<head>` contains viewport meta with no `<link rel="stylesheet"` or `<style>` tags, non-list engagers produce no badge; only `src/digest/digest_builder.py` and `tests/test_digest_builder.py` added.
 **Principle flags:** NONE
 **Action required:** NONE
 
