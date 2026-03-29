@@ -78,7 +78,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should mock the LLM HTTP call and assert: (a) the system prompt passed to the mock is the concatenation of schema then guidelines with a blank line between; (b) an article with `provider=ollama` has its body truncated at 600 words; (c) a cloud provider article body is truncated at 1200 words; (d) the `word_count` field appears in the per-article JSON sent to the LLM.
   - YAGNI boundary: Do not implement streaming, do not retry on failure, do not support OpenAI function-calling format — use the chat completions text response only. Do not implement `validate_summary()` here (TASK-008).
 
-- [ ] TASK-008: Summary validation gate (`validate_summary`, short-take fallback)
+- [x] TASK-008: Summary validation gate (`validate_summary`, short-take fallback)
   - Files: `src/digest/llm.py`
   - Test file: `tests/test_llm.py` (extend existing test file)
   - Acceptance: `validate_summary(summary_dict, config)` sends the summary text to the LLM with the prompt "Would you forward this summary to a smart friend? 1=no, 2=maybe, 3=yes." and returns the summary dict unchanged if the score is ≥ `summary_min_score`, or replaces the `summary` field with the short-take format `"**Short take:** {title} — {one sentence}"` if the score is below the threshold.

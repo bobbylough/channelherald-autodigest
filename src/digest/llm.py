@@ -50,6 +50,22 @@ def _prepare_article(
     }
 
 
+def validate_summary(
+    summary: dict[str, object], config: Config
+) -> dict[str, object]:
+    prompt = (
+        "Would you forward this summary to a smart friend? "
+        "Reply with a single integer only: 1=no, 2=maybe, 3=yes.\n\n"
+        f"Summary: {summary['summary']}"
+    )
+    raw = _call_llm("", prompt, config)
+    score = int(raw.strip())
+    if score < config.summary_min_score:
+        short_take = f"**Short take:** {summary['title']} — {summary['summary']}"
+        return {**summary, "summary": short_take}
+    return summary
+
+
 def _call_llm(system: str, user: str, config: Config) -> str:
     endpoint = _ENDPOINTS.get(config.llm_provider, _ENDPOINTS["groq"])
     headers = {"Authorization": f"Bearer {config.api_key}"}

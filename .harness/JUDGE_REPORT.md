@@ -8,9 +8,9 @@
 ## Audit Run
 
 - Date: 2026-03-29
-- Task audited: TASK-007
-- Git range: HEAD~1..HEAD (d7441e6) — TASK-007 files are uncommitted
-- Overall coverage: 98.72%
+- Task audited: TASK-008
+- Git range: HEAD~1..HEAD (0712204) — TASK-008 changes are uncommitted
+- Overall coverage: 98.78%
 - Lint: PASS
 - Type check: PASS
 
@@ -96,12 +96,25 @@
 
 ## [TASK-007]: PASS
 
-**Acceptance criterion:** `summarize_batch(articles, config)` loads `summary_schema.txt` and `summary_system.txt`, truncates bodies (600 words for ollama, 1200 for cloud), passes `word_count` per article in the JSON payload, and returns a list of summary dicts each containing `id`, `category`, `summary`, and `read_time`.
+**Acceptance criterion:** `summarize_batch(articles, config)` loads prompt files, truncates bodies (600/1200 words), passes `word_count`, returns summary dicts with `id`, `category`, `summary`, `read_time`.
 **Coverage:** 100% lines, 100% branches (src\digest\llm.py)
-**Tests:** 5 passing (33 total)
+**Tests:** 5 passing
 **Lint:** PASS
 **Type check:** PASS
-**Finding:** All acceptance criteria met — system prompt verified as schema-then-guidelines with blank line separator, ollama truncates at 600 words, cloud truncates at 1200 words, `word_count` present in payload, and returned summary dicts contain all required fields.
+**Finding:** All acceptance criteria met.
+**Principle flags:** NONE
+**Action required:** NONE
+
+---
+
+## [TASK-008]: PASS
+
+**Acceptance criterion:** `validate_summary(summary_dict, config)` sends summary text to the LLM and returns the dict unchanged if score ≥ `summary_min_score`, or replaces `summary` with `"**Short take:** {title} — {one sentence}"` if below threshold.
+**Coverage:** 100% lines, 100% branches (src\digest\llm.py — full file)
+**Tests:** 3 new passing (36 total)
+**Lint:** PASS
+**Type check:** PASS
+**Finding:** All acceptance criteria met — score-1 produces short-take starting with `**Short take:**`, score-2 and score-3 both leave `summary` unchanged; only `validate_summary` added to `llm.py`, no other files touched.
 **Principle flags:** NONE
 **Action required:** NONE
 

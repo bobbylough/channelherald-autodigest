@@ -2,7 +2,7 @@ import json
 from unittest.mock import MagicMock, patch
 
 from digest.config import Config
-from digest.llm import summarize_batch
+from digest.llm import summarize_batch, validate_summary
 
 _BASE = dict(
     imap_host="imap.example.com",
@@ -146,3 +146,46 @@ def test_returns_list_of_summary_dicts():
     assert result[0]["category"] == "Technology"
     assert result[0]["summary"] == "Something interesting."
     assert result[0]["read_time"] == 1
+
+
+# --- TASK-008: validate_summary ---
+
+def _summary_dict(
+    title: str = "Test Title", summary: str = "A summary."
+) -> dict[str, object]:
+    return {
+        "id": 1, "title": title, "category": "AI", "summary": summary, "read_time": 1
+    }
+
+
+def _score_response(score: int) -> MagicMock:
+    mock = MagicMock()
+    mock.raise_for_status.return_value = None
+    mock.json.return_value = {
+        "choices": [{"message": {"content": str(score)}}]
+    }
+    return mock
+
+
+def test_score_1_replaces_summary_with_short_take():
+    config = _config(summary_min_score=2)
+    summary = _summary_dict(title="My Article Title")
+    with patch(_PATCH, return_value=_score_response(1)):
+        result = validate_summary(summary, config)
+    assert str(result["summary"]).startswith("**Short take:**")
+
+
+def test_score_2_leaves_summary_unchanged():
+    config = _config(summary_min_score=2)
+    summary = _summary_dict(summary="Original summary text.")
+    with patch(_PATCH, return_value=_score_response(2)):
+        result = validate_summary(summary, config)
+    assert result["summary"] == "Original summary text."
+
+
+def test_score_3_leaves_summary_unchanged():
+    config = _config(summary_min_score=2)
+    summary = _summary_dict(summary="Another great summary.")
+    with patch(_PATCH, return_value=_score_response(3)):
+        result = validate_summary(summary, config)
+    assert result["summary"] == "Another great summary."
