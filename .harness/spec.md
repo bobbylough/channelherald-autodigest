@@ -64,7 +64,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should assert that `contains()` returns False for a fresh DB, True after `add()`, and that a second `SeenUrls` instance opened on the same path also returns True — confirming SQLite persistence, not just in-memory state.
   - YAGNI boundary: Do not add TTL expiry, do not add bulk-add, do not add URL normalisation — store the URL string as given.
 
-- [ ] TASK-006: Article rater (LLM-backed, `novelty_score`, `engagers`, `rating_explanation`)
+- [x] TASK-006: Article rater (LLM-backed, `novelty_score`, `engagers`, `rating_explanation`)
   - Files: `src/digest/article_rater.py`
   - Test file: `tests/test_article_rater.py`
   - Acceptance: `rate_article(article, config)` sends the article title and body to the configured LLM and returns the article dict extended with `dinner_score` (int 1–5), `novelty_score` (int 1–3), `engagers` (list[str]), and `rating_explanation` (str).
