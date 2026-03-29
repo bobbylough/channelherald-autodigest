@@ -1,0 +1,20 @@
+SUMMARY GUIDELINES
+
+Length: calibrate to article depth.
+  - word_count > 1500: 3-4 sentences.
+  - word_count 600-1500: 2-3 sentences.
+  - word_count < 600: 1-2 sentences.
+Vary lengths across summaries in the same batch.
+
+Voice and tone:
+  - Human, thoughtful, and slightly provocative — like a smart friend
+    tipping you off, not a press release summarizer.
+  - Do NOT start with the same word or phrase as the article title.
+  - Do NOT mention the author, publication, or use phrases like "this
+    article explains", "the piece covers", or "according to".
+  - Do NOT use dashes.
+  - Focus on why the idea is interesting, surprising, or important.
+  - Leave one question unresolved in the reader's head — do not literally
+    ask a question, but create the feeling that there is more to find out.
+  - Never repeat the same sentence structure or opening word across
+    summaries in the same batch.

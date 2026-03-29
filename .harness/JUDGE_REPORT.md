@@ -8,9 +8,9 @@
 ## Audit Run
 
 - Date: 2026-03-29
-- Task audited: TASK-006
-- Git range: HEAD~1..HEAD (3ef47b6) — TASK-006 files are uncommitted
-- Overall coverage: 98.52%
+- Task audited: TASK-007
+- Git range: HEAD~1..HEAD (d7441e6) — TASK-007 files are uncommitted
+- Overall coverage: 98.72%
 - Lint: PASS
 - Type check: PASS
 
@@ -76,20 +76,33 @@
 **Lint:** PASS
 **Type check:** PASS
 **Finding:** All acceptance criteria met.
-**Principle flags:** Maintainability: `sqlite3.connect()` as context manager does not close connections — 12 `ResourceWarning: unclosed database` emitted in test run.
+**Principle flags:** Maintainability: `sqlite3.connect()` as context manager does not close connections — `ResourceWarning: unclosed database` emitted in test run.
 **Action required:** NONE
 
 ---
 
 ## [TASK-006]: PASS
 
-**Acceptance criterion:** `rate_article(article, config)` sends article title and body to the configured LLM and returns the article dict extended with `dinner_score` (int 1–5), `novelty_score` (int 1–3), `engagers` (list[str]), and `rating_explanation` (str).
+**Acceptance criterion:** `rate_article(article, config)` returns article dict extended with `dinner_score`, `novelty_score`, `engagers`, `rating_explanation`.
 **Coverage:** 100% lines, 100% branches (src\digest\article_rater.py)
-**Tests:** 4 passing (28 total)
+**Tests:** 4 passing
 **Lint:** PASS
 **Type check:** PASS
-**Finding:** All acceptance criteria met — valid JSON parsed into four fields, original article fields preserved, missing and non-int `dinner_score` both raise `ValueError`.
-**Principle flags:** YAGNI: `_ENDPOINTS` in `article_rater.py:17–22` includes an `"anthropic"` key that is not a provider listed in spec.md and additionally points to the Groq endpoint (wrong URL), making it both out-of-scope and a latent bug. One flag — does not auto-fail.
+**Finding:** All acceptance criteria met.
+**Principle flags:** YAGNI: `_ENDPOINTS["anthropic"]` in `article_rater.py` — provider not in spec; entry also incorrectly points to the Groq endpoint URL.
+**Action required:** NONE
+
+---
+
+## [TASK-007]: PASS
+
+**Acceptance criterion:** `summarize_batch(articles, config)` loads `summary_schema.txt` and `summary_system.txt`, truncates bodies (600 words for ollama, 1200 for cloud), passes `word_count` per article in the JSON payload, and returns a list of summary dicts each containing `id`, `category`, `summary`, and `read_time`.
+**Coverage:** 100% lines, 100% branches (src\digest\llm.py)
+**Tests:** 5 passing (33 total)
+**Lint:** PASS
+**Type check:** PASS
+**Finding:** All acceptance criteria met — system prompt verified as schema-then-guidelines with blank line separator, ollama truncates at 600 words, cloud truncates at 1200 words, `word_count` present in payload, and returned summary dicts contain all required fields.
+**Principle flags:** NONE
 **Action required:** NONE
 
 ---

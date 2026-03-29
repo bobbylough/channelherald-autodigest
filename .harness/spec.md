@@ -71,7 +71,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should mock the HTTP call to the LLM provider and assert that a valid JSON response is parsed correctly into the four fields; also assert that a missing or invalid `dinner_score` raises `ValueError`.
   - YAGNI boundary: Do not batch multiple articles in one call, do not retry on LLM failure, do not log `rating_explanation` to a file — return it on the dict only. Do not implement the drop-rule here (that belongs to `digest.py`).
 
-- [ ] TASK-007: LLM summarizer with prompt-file split and word-count depth signal
+- [x] TASK-007: LLM summarizer with prompt-file split and word-count depth signal
   - Files: `src/digest/llm.py`, `src/digest/prompts/summary_schema.txt`, `src/digest/prompts/summary_system.txt`
   - Test file: `tests/test_llm.py`
   - Acceptance: `summarize_batch(articles, config)` loads `summary_schema.txt` and `summary_system.txt` from the `prompts/` directory (schema first), truncates each article body to 1200 words for cloud providers or 600 for `ollama`, passes `word_count` per article in the JSON payload, calls the LLM, and returns a list of summary dicts each containing `id`, `category`, `summary`, and `read_time`.
