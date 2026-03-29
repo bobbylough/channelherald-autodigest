@@ -8,9 +8,9 @@
 ## Audit Run
 
 - Date: 2026-03-29
-- Task audited: TASK-008
-- Git range: HEAD~1..HEAD (0712204) — TASK-008 changes are uncommitted
-- Overall coverage: 98.78%
+- Task audited: TASK-009
+- Git range: HEAD~1..HEAD (f1abe1a) — TASK-009 changes are uncommitted
+- Overall coverage: 98.76%
 - Lint: PASS
 - Type check: PASS
 
@@ -115,6 +115,19 @@
 **Lint:** PASS
 **Type check:** PASS
 **Finding:** All acceptance criteria met — score-1 produces short-take starting with `**Short take:**`, score-2 and score-3 both leave `summary` unchanged; only `validate_summary` added to `llm.py`, no other files touched.
+**Principle flags:** NONE
+**Action required:** NONE
+
+---
+
+## [TASK-009]: PASS
+
+**Acceptance criterion:** `run_pipeline(config)` wires together fetch → extract → scrape (skipping seen URLs) → rate (if enabled) → filter by per-tier score threshold → sort by `dinner_score` desc then `content_depth` desc → deduplicate by Jaccard title similarity (threshold 0.5, keep higher `dinner_score`) → summarise → validate summaries (if enabled) → return list of summary dicts ready for the builder.
+**Coverage:** 99% lines, 99% branches (src\digest\digest.py — full file); 98.76% total
+**Tests:** 7 new passing (43 total)
+**Lint:** PASS
+**Type check:** PASS
+**Finding:** All acceptance criteria met — preferred/regular per-tier thresholds verified, Jaccard dedup keeps higher-scored article, `content_depth` tiebreaker confirmed, seen-URL skip verified, `validate_summary` called only when `enable_summary_validation=True`, `rate_article` not called when `enable_rating=False`; only `src/digest/digest.py` and `tests/test_digest.py` added.
 **Principle flags:** NONE
 **Action required:** NONE
 

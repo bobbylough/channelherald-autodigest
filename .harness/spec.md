@@ -85,7 +85,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should mock the LLM call and assert that a score-1 response causes the `summary` field to be replaced with the short-take format starting with `"**Short take:**"`, while a score-2 or score-3 response leaves `summary` unchanged.
   - YAGNI boundary: Do not re-run the full summarizer — short-take is the only fallback. Do not call `validate_summary` unless `enable_summary_validation=True` (the caller in `digest.py` checks this flag).
 
-- [ ] TASK-009: Digest pipeline orchestration (per-tier thresholds, Jaccard dedup, sort)
+- [x] TASK-009: Digest pipeline orchestration (per-tier thresholds, Jaccard dedup, sort)
   - Files: `src/digest/digest.py`
   - Test file: `tests/test_digest.py`
   - Acceptance: `run_pipeline(config)` wires together fetch → extract → scrape (skipping seen URLs) → rate (if enabled) → filter by per-tier score threshold → sort by `dinner_score` desc then `content_depth` desc → deduplicate by Jaccard title similarity (threshold 0.5, keep higher `dinner_score`) → summarise → validate summaries (if enabled) → return list of summary dicts ready for the builder.
