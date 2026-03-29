@@ -8,9 +8,9 @@
 ## Audit Run
 
 - Date: 2026-03-29
-- Task audited: TASK-001
-- Git range: N/A (no commits yet — first task, no harness-baseline tag)
-- Overall coverage: 96.67%
+- Task audited: TASK-002
+- Git range: N/A (no harness-baseline tag — single initial commit 56e7998)
+- Overall coverage: 97.27%
 - Lint: PASS
 - Type check: PASS
 
@@ -19,12 +19,25 @@
 ## [TASK-001]: PASS
 
 **Acceptance criterion:** `Config.from_file(path)` parses a `.properties` key=value file into a typed dataclass with correct types and defaults for all optional fields.
-**Coverage:** 96.67% lines, 87.5% branches (TOTAL 96.67% — above 90% threshold)
+**Coverage:** 97% lines (src\digest\config.py)
 **Tests:** 4 passing
 **Lint:** PASS
 **Type check:** PASS
-**Finding:** All acceptance criteria met — `from_file` correctly parses required fields, raises `ValueError` on missing required keys, and resolves all 13 optional fields to their documented defaults.
-**Principle flags:** Maintainability: `Config.from_file` is 33 lines (lines 52–84 in `config.py`), exceeding the 20-line limit; the function does one thing but the long constructor call inflates line count.
+**Finding:** All acceptance criteria met — `from_file` correctly parses required fields, raises `ValueError` on missing required keys, and resolves all optional fields to documented defaults.
+**Principle flags:** Maintainability: `Config.from_file` is 33 lines (config.py:52–84), exceeding the 20-line limit.
+**Action required:** NONE
+
+---
+
+## [TASK-002]: PASS
+
+**Acceptance criterion:** `fetch_emails(config)` connects to IMAP, searches for emails from `newsletter_senders` within the lookback window, and returns a `list[dict]` where each dict has `body: str` (raw HTML) and `is_preferred: bool` (True when the sender matches a `preferred_senders` entry).
+**Coverage:** 98% lines, 91.7% branches (src\digest\imap_fetch.py)
+**Tests:** 5 passing (9 total)
+**Lint:** PASS
+**Type check:** PASS
+**Finding:** All acceptance criteria met — `fetch_emails` mocks IMAP correctly, returns dicts with `body` and `is_preferred`, domain-pattern matching (`@domain.com`) and exact-address matching both work correctly.
+**Principle flags:** NONE
 **Action required:** NONE
 
 ---

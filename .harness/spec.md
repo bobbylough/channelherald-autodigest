@@ -36,7 +36,7 @@ working pipeline. No existing source code to modify — every file is net-new.
   - TDD note: Test should assert that `Config.from_file()` raises `ValueError` when a required key (`imap_host`) is missing, and that optional keys (`email_lookback_days`, `max_articles_per_email`, `max_articles`, `max_digest_stories`, `debug`, `preferred_senders`, `enable_rating`, `rating_provider`, `ollama_model`, `min_dinner_score`, `min_dinner_score_preferred`, `enable_summary_validation`, `summary_min_score`) all resolve to their documented defaults when absent.
   - YAGNI boundary: Do not add env-var fallback, do not validate API key format, do not support TOML or YAML, do not add a `to_dict()` method.
 
-- [ ] TASK-002: IMAP email fetch with `is_preferred` tagging
+- [x] TASK-002: IMAP email fetch with `is_preferred` tagging
   - Files: `src/digest/imap_fetch.py`
   - Test file: `tests/test_imap_fetch.py`
   - Acceptance: `fetch_emails(config)` connects to IMAP, searches for emails from `newsletter_senders` within the lookback window, and returns a `list[dict]` where each dict has `body: str` (raw HTML) and `is_preferred: bool` (True when the sender matches a `preferred_senders` entry).
